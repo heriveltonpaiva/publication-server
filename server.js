@@ -31,6 +31,10 @@ app.get("/", function(req, res) {
 
 const publicacao = require('./routes/publicacao.route'); 
 app.use('/api/publicacao', publicacao);
+const categoria = require('./routes/categoria.route'); 
+app.use('/api/categoria', categoria);
+const assunto = require('./routes/assunto.route'); 
+app.use('/api/assunto', assunto);
 
 app.listen(3000, () => {
     console.log("Servidor NodeJS rodando na porta 3000");

@@ -7,7 +7,7 @@ exports.findAll = async(req, res) => {
 };
 
 exports.save = async(req, res) => {
-   const novoDoc = new Publicacao(req.body);
+    const novoDoc = new Publicacao(req.body);
     await novoDoc.save();
     res.status(200).json({status:true});
 };

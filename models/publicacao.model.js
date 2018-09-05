@@ -22,6 +22,10 @@ let publicacaoSchema = new mongoose.Schema({
     subcategoria :{
         type : String,
         required : true, 
+    },
+    dataCadastro: { 
+        type: Date, 
+        default: Date.now 
     }
 })  
 module.exports = mongoose.model("publicacoes", publicacaoSchema);
