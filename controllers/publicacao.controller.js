@@ -2,7 +2,9 @@ var ObjectID = require('mongodb').ObjectID;
 const Publicacao = require('../models/publicacao.model.js');
 
 exports.findAll = async(req, res) => {
-    const publicacoes = await Publicacao.find();
+    const publicacoes = await Publicacao.find()
+    .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
+    .sort({'dataCadastro': -1});
     res.json(publicacoes);
 };
 
@@ -17,8 +19,7 @@ exports.update = async(req, res) => {
     Publicacao.update({_id: id}, {
     $set:{'titulo': req.body.titulo, 
           'conteudo': req.body.conteudo,
-          'categoria': req.body.categoria,
-          'subcategoria': req.body.subcategoria}})
+          'idAssunto': req.body.idAssunto}})
     .catch(err => {
         throw new Error(err);
       });

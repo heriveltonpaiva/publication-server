@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 const dbConfig = require('./config/database.config.js');
-
+mongoose.set('useCreateIndex', true);
 mongoose.connect(dbConfig.url, {useNewUrlParser: true}).then(() => {
     console.log("Conectado a base de dados com sucesso.");  
 }).catch(err => {

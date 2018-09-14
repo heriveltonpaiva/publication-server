@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-
+var Schema = mongoose.Schema;
+var ObjectId = Schema.Types.ObjectId;
 let publicacaoSchema = new mongoose.Schema({
     titulo :{
         type : String,
@@ -15,13 +16,9 @@ let publicacaoSchema = new mongoose.Schema({
         type : String,
         required : true, 
     },
-    categoria :{
-        type : String,
-        required : true, 
-    },
-    subcategoria :{
-        type : String,
-        required : true, 
+    idAssunto:{ 
+        type: ObjectId,
+        ref: 'assuntos'
     },
     dataCadastro: { 
         type: Date, 
