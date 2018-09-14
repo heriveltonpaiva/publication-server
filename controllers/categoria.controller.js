@@ -6,6 +6,14 @@ exports.findAll = async(req, res) => {
     res.json(categorias);
 };
 
+exports.findById = async(req, res) => {
+    let id = {_id: ObjectID(req.params.id)};
+    const categoria = await Categoria.findOne({_id:id}).catch(err => {
+        throw new Error(err);
+    });
+    res.json(categoria);
+};
+
 exports.save = async(req, res) => {
     const novoDoc = new Categoria(req.body);
     await novoDoc.save();
