@@ -8,6 +8,18 @@ exports.findAll = async(req, res) => {
     res.json(publicacoes);
 };
 
+exports.findById = async(req, res) => {
+    console.log(req.params.id);
+    let id = {_id: ObjectID(req.params.id)};
+    console.log(id);
+    const publicacao = await Publicacao.findOne({_id:id})
+    .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
+    .catch(err => {
+        throw new Error(err);
+    });
+    res.json(publicacao);
+};
+
 exports.save = async(req, res) => {
     const novoDoc = new Publicacao(req.body);
     await novoDoc.save();
@@ -18,6 +30,7 @@ exports.update = async(req, res) => {
    let id = {_id: ObjectID(req.params.id)};
     Publicacao.update({_id: id}, {
     $set:{'titulo': req.body.titulo, 
+          'resumo': req.body.resumo,
           'conteudo': req.body.conteudo,
           'idAssunto': req.body.idAssunto}})
     .catch(err => {
