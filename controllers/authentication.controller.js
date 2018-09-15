@@ -9,7 +9,7 @@ exports.createAuthenticationTokenJWT = async(req, res) => {
     if(!user){
         res.json({ success: false, message: 'Autenticação falhou. Usuário não encontrado.' });
         // check if password matches
-    }else if (user.password == undefined || user.password != req.body.password) {
+    }else if (user.password == undefined || user.password != require('crypto').createHash('md5').update(req.body.password).digest("hex")){
         res.json({ success: false, message: 'Autenticação falhou. Senha incorreta.' }); 
     }else{
         // if user is found and password is right
