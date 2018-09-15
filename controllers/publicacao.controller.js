@@ -22,7 +22,9 @@ exports.findById = async(req, res) => {
 
 exports.save = async(req, res) => {
     const novoDoc = new Publicacao(req.body);
-    await novoDoc.save();
+    await novoDoc.save().catch(err => {
+        throw new Error(err);
+    });;
     res.status(200).json({status:true});
 };
 

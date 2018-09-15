@@ -26,7 +26,12 @@ exports.update = async(req, res) => {
 
 exports.save = async(req, res) => {
     const novoDoc = new Categoria(req.body);
-    await novoDoc.save();
+    try {
+        await novoDoc.save();
+    }catch (error) {
+        console.log(error.toString());
+        res.status(500).json(error.toString());
+    }
     res.status(200).json({status:true});
 };
 
