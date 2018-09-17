@@ -20,6 +20,12 @@ exports.findById = async(req, res) => {
     res.json(publicacao);
 };
 
+exports.findByTopic = async(req, res) => {
+    let idTopic = {_id: ObjectID(req.params.id)};
+    const publicacoes = await Publicacao.find({idAssunto:idTopic});
+    res.json(publicacoes);
+};
+
 exports.save = async(req, res) => {
     const novoDoc = new Publicacao(req.body);
     await novoDoc.save().catch(err => {
