@@ -1,9 +1,22 @@
 var ObjectID = require('mongodb').ObjectID;
 const Categoria = require('../models/categoria.model.js');
 
+
 exports.findAll = async(req, res) => {
-    const categorias = await Categoria.find().sort({'descricao': 1});
+    const categorias = await Categoria.find()
+    .sort({'descricao': 1});
     res.json(categorias);
+};
+
+exports.findAllPagination = async(req, res) => {
+    var perPage = 5;
+    var page = req.params.page || 1;
+    const total = await Categoria.count();
+    const categorias = await Categoria.find()
+    .sort({'descricao': 1})
+    .skip((perPage * page) - perPage)
+    .limit(perPage);
+    res.json({items:categorias, pages : Math.ceil(total / perPage), total: total});
 };
 
 exports.findById = async(req, res) => {

@@ -6,6 +6,17 @@ exports.findAll = async(req, res) => {
     res.json(assuntos);
 };
 
+exports.findAllPagination = async(req, res) => {
+    var perPage = 5;
+    var page = req.params.page || 1;
+    const total = await Assunto.count();
+    const assuntos = await Assunto.find().populate('idCategoria')
+    .sort({'descricao': 1})
+    .skip((perPage * page) - perPage)
+    .limit(perPage);
+    res.json({items:assuntos, pages : Math.ceil(total / perPage), total: total});
+};
+
 exports.findByCategory = async(req, res) => {
     let idCategory = {_id: ObjectID(req.params.id)};
     const assuntos = await Assunto.find({idCategoria:idCategory});
