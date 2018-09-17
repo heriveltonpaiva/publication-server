@@ -20,7 +20,7 @@ exports.createAuthenticationTokenJWT = async(req, res) => {
         const payload = {user};
         const tokenJWT = jwt.sign(payload, dbConfig.secret, {
             algorithm: 'HS256',
-            expiresIn: 606024*30 * 1 // expira em 1 dia
+            expiresIn:  606024*30 * 1 // expira em 1 dia
     });
         res.status(200).json({
             success: true,

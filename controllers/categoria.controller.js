@@ -21,7 +21,7 @@ exports.update = async(req, res) => {
      .catch(err => {
          throw new Error(err);
        });
-     res.status(200).json({status:true})
+     res.status(200).json('Categoria atualizada com sucesso.')
  };
 
 exports.save = async(req, res) => {
@@ -32,7 +32,7 @@ exports.save = async(req, res) => {
         console.log(error.toString());
         res.status(500).json(error.toString());
     }
-    res.status(200).json({status:true});
+    res.status(200).json('Categoria cadastrada com sucesso.');
 };
 
 exports.delete = async(req, res) => {
@@ -40,7 +40,7 @@ exports.delete = async(req, res) => {
     Categoria.deleteOne({_id:id}).catch(err => {
       throw new Error(err);
     });
-    res.status(200).json({status:true})
+    res.status(200).json('Categoria removida com sucesso.')
 };
 
 

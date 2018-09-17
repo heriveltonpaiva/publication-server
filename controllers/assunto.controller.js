@@ -28,13 +28,13 @@ exports.update = async(req, res) => {
      .catch(err => {
          throw new Error(err);
        });
-     res.status(200).json({status:true})
+    res.status(200).json('Assunto atualizado com sucesso.')
  };
 
 exports.save = async(req, res) => {
     const novoDoc = new Assunto(req.body);
     await novoDoc.save();
-    res.status(200).json({status:true});
+    res.status(200).json('Assunto cadastrado com sucesso.')
 };
 
 exports.delete = async(req, res) => {
@@ -42,7 +42,7 @@ exports.delete = async(req, res) => {
     Assunto.deleteOne({_id:id}).catch(err => {
       throw new Error(err);
     });
-    res.status(200).json({status:true})
+    res.status(200).json('Assunto removido com sucesso.')
 };
 
 
