@@ -20,6 +20,14 @@ let publicacaoSchema = new mongoose.Schema({
         type: ObjectId,
         ref: 'assuntos'
     },
+    idUsuario:{ 
+        type: ObjectId,
+        ref: 'usuarios'
+    },
+    areaPublica:{
+        type: Boolean, 
+        default:false
+    },
     dataCadastro: { 
         type: Date, 
         default: Date.now 

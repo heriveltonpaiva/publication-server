@@ -34,7 +34,8 @@ app.get("/", function(req, res) {
 
 const auth = require('./routes/authentication.route.js'); 
 app.use('/api/generate-token', auth);
-
+const public = require('./routes/public.route.js');
+app.use('/api/public', public);
 
 /**
  * req.query.token: é passado o token pelo PublicationInterceptor através dos params

@@ -1,9 +1,14 @@
 var ObjectID = require('mongodb').ObjectID;
 const Categoria = require('../models/categoria.model.js');
 
-
 exports.findAll = async(req, res) => {
     const categorias = await Categoria.find()
+    .sort({'descricao': 1});
+    res.json(categorias);
+};
+
+exports.findAllPublic = async(req, res) => {
+    const categorias = await Categoria.find({areaPublica:true})
     .sort({'descricao': 1});
     res.json(categorias);
 };
@@ -37,8 +42,17 @@ exports.update = async(req, res) => {
      res.status(200).json('Categoria atualizada com sucesso.')
  };
 
+ exports.updatePublicArea = async(req, res) => {
+    let id = {_id: ObjectID(req.params.id)};
+     Categoria.update({_id: id}, {
+     $set:{'areaPublica': req.body.areaPublica}})
+     .catch(err => {throw new Error(err);});
+     res.status(200).json();
+ };
+
 exports.save = async(req, res) => {
     const novoDoc = new Categoria(req.body);
+          novoDoc.privada = true;
     try {
         await novoDoc.save();
     }catch (error) {

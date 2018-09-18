@@ -12,6 +12,14 @@ let assuntoSchema = new mongoose.Schema({
         type: ObjectId,
         ref: 'categorias'
     },
+    areaPublica:{
+        type: Boolean, 
+        default:false
+    },
+    idUsuario:{ 
+        type: ObjectId,
+        ref: 'usuarios'
+    },
     dataCadastro: { 
         type: Date, 
         default: Date.now 
