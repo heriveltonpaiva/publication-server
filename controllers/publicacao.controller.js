@@ -8,6 +8,18 @@ exports.findAll = async(req, res) => {
     res.json(publicacoes);
 };
 
+exports.findAllPagination = async(req, res) => {
+    var perPage = 5;
+    var page = req.params.page || 1;
+    const total = await Publicacao.count();
+    const publicacoes = await Publicacao.find()
+    .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
+    .sort({'dataCadastro': -1})
+    .skip((perPage * page) - perPage)
+    .limit(perPage);
+    res.json({items:publicacoes, pages : Math.ceil(total / perPage), total: total});
+};
+
 exports.findById = async(req, res) => {
     console.log(req.params.id);
     let id = {_id: ObjectID(req.params.id)};
@@ -31,7 +43,7 @@ exports.save = async(req, res) => {
     await novoDoc.save().catch(err => {
         throw new Error(err);
     });;
-    res.status(200).json({status:true});
+    res.status(200).json('Publicação cadastrada com sucesso.');
 };
 
 exports.update = async(req, res) => {
@@ -44,15 +56,23 @@ exports.update = async(req, res) => {
     .catch(err => {
         throw new Error(err);
       });
-    res.status(200).json({status:true})
+    res.status(200).json('Publicação atualizada com sucesso.');
 };
+
+exports.updatePublicArea = async(req, res) => {
+    let id = {_id: ObjectID(req.params.id)};
+    Publicacao.update({_id: id}, {
+     $set:{'areaPublica': req.body.areaPublica}})
+     .catch(err => {throw new Error(err);});
+     res.status(200).json();
+ };
 
 exports.delete = async(req, res) => {
     let id = {_id: ObjectID(req.params.id)};
     Publicacao.deleteOne({_id:id}).catch(err => {
       throw new Error(err);
     });
-    res.status(200).json({status:true})
+    res.status(200).json('Publicação removida com sucesso.');
 };
 
 
