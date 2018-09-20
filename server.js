@@ -3,6 +3,10 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require("morgan");
 const jwt = require('jsonwebtoken');
+// npm install --save express-fileupload biblioteca necessária para carregar o arquivo do fileupload
+const fileUploadDependencia = require('express-fileupload');
+
+
 const app = express();
 
 app.use(function(req, res, next) {
@@ -18,6 +22,7 @@ app.use(morgan("dev"))
 app.use(bodyParser.json({limit:'5mb'})); 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(fileUploadDependencia());
 
 const dbConfig = require('./config/database.config.js');
 mongoose.set('useCreateIndex', true);
@@ -61,7 +66,9 @@ const publicacao = require('./routes/publicacao.route');
 const categoria = require('./routes/categoria.route'); 
 const assunto = require('./routes/assunto.route'); 
 const usuario = require('./routes/usuario.route'); 
+const fileUpload = require('./routes/fileupload.route'); 
 
+app.use('/api/fileupload', fileUpload);
 app.use('/api/publicacao', publicacao);
 app.use('/api/categoria', categoria);
 app.use('/api/assunto', assunto);
