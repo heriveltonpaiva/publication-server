@@ -8,6 +8,20 @@ exports.findAll = async(req, res) => {
     res.json(publicacoes);
 };
 
+/* Listagem paginada para área pública */
+exports.findAllPublic = async(req, res) => {
+    var perPage = 5;
+    var page = req.params.page || 1;
+    const total = await Publicacao.count();
+    const publicacoes = await Publicacao.find({areaPublica:true})
+    .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
+    .sort({'dataCadastro': -1})
+    .skip((perPage * page) - perPage)
+    .limit(perPage);
+    console.log(publicacoes);
+    res.json({items:publicacoes, pages : Math.ceil(total / perPage), total: total});
+};
+
 exports.findAllPagination = async(req, res) => {
     var perPage = 5;
     var page = req.params.page || 1;

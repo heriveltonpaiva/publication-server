@@ -1,9 +1,10 @@
+// npm install express body-parser mongoose morgan express-fileupload jsonwebtoken --save
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require("morgan");
 const jwt = require('jsonwebtoken');
-// npm install --save express-fileupload biblioteca necessária para carregar o arquivo do fileupload
+// Necessária para carregar o arquivo do fileupload
 const fileUploadDependencia = require('express-fileupload');
 
 
@@ -29,7 +30,7 @@ mongoose.set('useCreateIndex', true);
 mongoose.connect(dbConfig.url, {useNewUrlParser: true}).then(() => {
     console.log("Conectado a base de dados com sucesso.");  
 }).catch(err => {
-    console.log('Não foi possível conectar a base de dados. Exiting now...');
+    console.log('Não foi possível conectar a base de dados. Exiting now...'+err);
     process.exit();
 });
 

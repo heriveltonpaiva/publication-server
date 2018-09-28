@@ -6,7 +6,7 @@ const publicacaoController = require('../controllers/publicacao.controller');
 
 router.get('/categoria',  categoriaController.findAllPublic);
 router.get('/assunto',    assuntoController.findAllPublic);
-router.get('/publicacao', publicacaoController.findAll);
+router.get('/publicacao/:page', publicacaoController.findAllPublic);
 
 
 module.exports = router;
