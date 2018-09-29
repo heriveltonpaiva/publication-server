@@ -18,7 +18,6 @@ exports.findAllPublic = async(req, res) => {
     .sort({'dataCadastro': -1})
     .skip((perPage * page) - perPage)
     .limit(perPage);
-    console.log(publicacoes);
     res.json({items:publicacoes, pages : Math.ceil(total / perPage), total: total});
 };
 

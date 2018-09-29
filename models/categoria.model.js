@@ -15,9 +15,9 @@ let categoriaSchema = new mongoose.Schema({
         type: ObjectId,
         ref: 'usuarios'
     },
-    dataCadastro: { 
-        type: Date, 
-        default: Date.now 
+    idArquivo: { 
+        type: ObjectId, 
+        ref: 'arquivos'
     }
 })  
 module.exports = mongoose.model("categorias", categoriaSchema);

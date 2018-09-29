@@ -14,5 +14,6 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 router.post('/', upload.single('file'), controller.getFileUploaded);
+router.post('/save', controller.saveArquivo);
 
 module.exports = router;

@@ -9,6 +9,7 @@ exports.findAll = async(req, res) => {
 
 exports.findAllPublic = async(req, res) => {
     const categorias = await Categoria.find({areaPublica:true})
+    .populate('idArquivo')
     .sort({'descricao': 1});
     res.json(categorias);
 };
