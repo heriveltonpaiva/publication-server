@@ -1,16 +1,32 @@
 const mongoose = require('mongoose');
 let usuarioSchema = new mongoose.Schema({
-    login :{
+    nome:{
+        type : String,
+        required : true
+    },
+    login:{
         type : String,
         required : true, 
         unique: true
     },
-    password :{
+    password:{
         type : String,
         required : true
     },
+    email:{
+        type : String,
+        required : true
+    },
+    idArquivo: { 
+        type: ObjectId, 
+        ref: 'arquivos'
+    },
     admin:{
         type: Boolean, 
+        default:true
+    },
+    ativo:{
+        type:Boolean,
         default:true
     },
     dataCadastro: { 
