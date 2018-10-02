@@ -26,7 +26,7 @@ exports.createAuthenticationTokenJWT = async(req, res) => {
             success: true,
             message:'Token gerado com sucesso.',
             token: tokenJWT, 
-            data: {login: user.login},
+            data: user,
             expiresIn: 1000
           });
     }
