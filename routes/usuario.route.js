@@ -6,5 +6,5 @@ router.get('/',              controller.findAll);
 router.get('/:page',         controller.findAllPagination);
 router.get('/byId/:id',      controller.findById);
 router.post('/save',         controller.save);
-
+router.put('/update/:id',    controller.update);
 module.exports = router;

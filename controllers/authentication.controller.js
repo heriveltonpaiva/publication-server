@@ -8,7 +8,7 @@ const dbConfig = require('../config/database.config.js');
 var jwt = require('jsonwebtoken');
 
 exports.createAuthenticationTokenJWT = async(req, res) => {
-    const user = await Usuario.findOne({login: req.body.login}).catch(err => {
+    const user = await Usuario.findOne({login: req.body.login}).populate('idArquivo').catch(err => {
         throw new Error(err);
     });
 
@@ -17,7 +17,8 @@ exports.createAuthenticationTokenJWT = async(req, res) => {
     }else if (user.password == undefined || user.password != require('crypto').createHash('md5').update(req.body.password).digest("hex")){
         res.json({ success: false, message: 'Autenticação falhou. Senha incorreta.' }); 
     }else{
-        const payload = {user};
+        let pay = req.body.login;
+        const payload = {pay};
         const tokenJWT = jwt.sign(payload, dbConfig.secret, {
             algorithm: 'HS256',
             expiresIn:  606024*30 * 1 // expira em 1 dia

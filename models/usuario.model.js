@@ -15,6 +15,9 @@ let usuarioSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    resumo:{
+        type : String
+    },
     email:{
         type : String,
         required : true

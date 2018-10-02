@@ -11,10 +11,11 @@ exports.findAllPagination = async(req, res) => {
     var page = req.params.page || 1;
     const total = await Usuario.count();
     const usuarios = await Usuario.find()
-    .populate({path:'idArquivos'})
+    .populate({path:'idArquivo'})
     .sort({'dataCadastro': -1})
     .skip((perPage * page) - perPage)
     .limit(perPage);
+    console.log(usuarios);
     res.json({items:usuarios, pages : Math.ceil(total / perPage), total: total});
 };
 
@@ -41,6 +42,19 @@ exports.save = async(req, res) => {
     console.log('Usuário salvo com sucesso.');
     res.status(200).json({status:true});
 };
+
+exports.update = async(req, res) => {
+    let id = {_id: ObjectID(req.params.id)};
+     Usuario.update({_id: id}, {
+     $set:{'name': req.body.name, 
+           'resumo': req.body.resumo, 
+           'email': req.body.email, 
+           'idArquivo': req.body.idArquivo}})
+     .catch(err => {
+         throw new Error(err);
+       });
+     res.status(200).json('Publicação atualizada com sucesso.');
+ };
 
 
 
