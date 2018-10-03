@@ -53,7 +53,8 @@ exports.update = async(req, res) => {
      .catch(err => {
          throw new Error(err);
        });
-     res.status(200).json('Publicação atualizada com sucesso.');
+    const usuario = await Usuario.findOne({_id:id}).populate({path:'idArquivo'});
+     res.status(200).json(usuario);
  };
 
 
