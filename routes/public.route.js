@@ -10,5 +10,6 @@ router.get('/assunto',    assuntoController.findAllPublic);
 router.get('/publicacao/:page', publicacaoController.findAllPublic);
 
 router.post('/usuario',  usuarioController.save);
+router.get('/usuario/byId/:id', usuarioController.findById);
 
 module.exports = router;

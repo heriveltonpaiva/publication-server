@@ -18,6 +18,10 @@ let categoriaSchema = new mongoose.Schema({
     idArquivo: { 
         type: ObjectId, 
         ref: 'arquivos'
+    },
+    dataCadastro: { 
+        type: Date, 
+        default: Date.now 
     }
 })  
 module.exports = mongoose.model("categorias", categoriaSchema);

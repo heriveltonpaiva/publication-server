@@ -4,6 +4,7 @@ const Publicacao = require('../models/publicacao.model.js');
 exports.findAll = async(req, res) => {
     const publicacoes = await Publicacao.find()
     .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
+    .populate({path:'idUsuario'})
     .sort({'dataCadastro': -1});
     res.json(publicacoes);
 };
@@ -15,6 +16,7 @@ exports.findAllPublic = async(req, res) => {
     const total = await Publicacao.count();
     const publicacoes = await Publicacao.find({areaPublica:true})
     .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
+    .populate({path:'idUsuario'})
     .sort({'dataCadastro': -1})
     .skip((perPage * page) - perPage)
     .limit(perPage);
@@ -27,6 +29,7 @@ exports.findAllPagination = async(req, res) => {
     const total = await Publicacao.count();
     const publicacoes = await Publicacao.find()
     .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
+    .populate({path:'idUsuario'})
     .sort({'dataCadastro': -1})
     .skip((perPage * page) - perPage)
     .limit(perPage);
@@ -39,6 +42,7 @@ exports.findById = async(req, res) => {
     console.log(id);
     const publicacao = await Publicacao.findOne({_id:id})
     .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
+    .populate({path:'idUsuario'})
     .catch(err => {
         throw new Error(err);
     });
