@@ -37,9 +37,7 @@ exports.findAllPagination = async(req, res) => {
 };
 
 exports.findById = async(req, res) => {
-    console.log(req.params.id);
     let id = {_id: ObjectID(req.params.id)};
-    console.log(id);
     const publicacao = await Publicacao.findOne({_id:id})
     .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
     .populate({path:'idUsuario'})
@@ -47,6 +45,20 @@ exports.findById = async(req, res) => {
         throw new Error(err);
     });
     res.json(publicacao);
+};
+
+exports.findByUser = async(req, res) => {
+    var perPage = 5;
+    var page = req.params.page || 1;
+    const total = await Publicacao.count();
+    let idUser = {_id: ObjectID(req.params.idUsuario)};
+    const publicacoes = await Publicacao.find({idUsuario:idUser})
+    .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
+    .populate({path:'idUsuario'})
+    .sort({'dataCadastro': -1})
+    .skip((perPage * page) - perPage)
+    .limit(perPage);
+    res.json({items:publicacoes, pages : Math.ceil(total / perPage), total: total});
 };
 
 exports.findByTopic = async(req, res) => {
