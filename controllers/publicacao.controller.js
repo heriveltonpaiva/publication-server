@@ -13,7 +13,7 @@ exports.findAll = async(req, res) => {
 exports.findAllPublic = async(req, res) => {
     var perPage = 5;
     var page = req.params.page || 1;
-    const total = await Publicacao.count();
+    const total = await Publicacao.count({areaPublica:true});
     const publicacoes = await Publicacao.find({areaPublica:true})
     .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
     .populate({path:'idUsuario'})
@@ -50,8 +50,8 @@ exports.findById = async(req, res) => {
 exports.findByUser = async(req, res) => {
     var perPage = 5;
     var page = req.params.page || 1;
-    const total = await Publicacao.count();
     let idUser = {_id: ObjectID(req.params.idUsuario)};
+    const total = await Publicacao.count({idUsuario:idUser});
     const publicacoes = await Publicacao.find({idUsuario:idUser})
     .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
     .populate({path:'idUsuario'})

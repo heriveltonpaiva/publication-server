@@ -4,13 +4,11 @@ var ObjectId = Schema.Types.ObjectId;
 let publicacaoSchema = new mongoose.Schema({
     titulo :{
         type : String,
-        required : true, 
-        unique: true
+        required : true
     },
     resumo :{
         type : String,
-        required : true, 
-        unique: true
+        required : true
     },
     conteudo :{
         type : String,

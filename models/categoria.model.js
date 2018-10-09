@@ -4,8 +4,7 @@ var ObjectId = Schema.Types.ObjectId;
 let categoriaSchema = new mongoose.Schema({
     descricao :{
         type : String,
-        required : true, 
-        unique: true
+        required : true
     },
     areaPublica:{
         type: Boolean, 
