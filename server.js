@@ -1,5 +1,6 @@
 // npm install express body-parser mongoose morgan express-fileupload jsonwebtoken --save
 const express = require('express');
+var compression = require('compression');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require("morgan");
@@ -19,7 +20,8 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use(morgan("dev"))
+app.use(morgan("prod"))
+app.use(compression());
 app.use(bodyParser.json({limit:'5mb'})); 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

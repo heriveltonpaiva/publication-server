@@ -5,8 +5,7 @@ var ObjectId = Schema.Types.ObjectId;
 let assuntoSchema = new mongoose.Schema({
     descricao :{
         type : String,
-        required : true, 
-        unique: true
+        required : true
     },
     idCategoria:{ 
         type: ObjectId,
