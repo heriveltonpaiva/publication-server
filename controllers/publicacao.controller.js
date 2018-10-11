@@ -13,7 +13,7 @@ exports.findAll = async(req, res) => {
 exports.findAllPublic = async(req, res) => {
     var perPage = 5;
     var page = req.params.page || 1;
-    const total = await Publicacao.count({areaPublica:true});
+    const total = await Publicacao.countDocuments({areaPublica:true});
     const publicacoes = await Publicacao.find({areaPublica:true})
     .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
     .populate({path:'idUsuario'})
@@ -26,7 +26,7 @@ exports.findAllPublic = async(req, res) => {
 exports.findAllPagination = async(req, res) => {
     var perPage = 5;
     var page = req.params.page || 1;
-    const total = await Publicacao.count();
+    const total = await Publicacao.countDocuments();
     const publicacoes = await Publicacao.find()
     .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
     .populate({path:'idUsuario'})
@@ -51,7 +51,7 @@ exports.findByUser = async(req, res) => {
     var perPage = 5;
     var page = req.params.page || 1;
     let idUser = {_id: ObjectID(req.params.idUsuario)};
-    const total = await Publicacao.count({idUsuario:idUser});
+    const total = await Publicacao.countDocuments({idUsuario:idUser});
     const publicacoes = await Publicacao.find({idUsuario:idUser})
     .populate({path:'idAssunto',  populate: { path: 'idCategoria' }})
     .populate({path:'idUsuario'})

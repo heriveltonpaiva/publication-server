@@ -17,7 +17,7 @@ exports.findAllPublic = async(req, res) => {
 exports.findAllPagination = async(req, res) => {
     var perPage = 5;
     var page = req.params.page || 1;
-    const total = await Categoria.count();
+    const total = await Categoria.countDocuments();
     const categorias = await Categoria.find()
     .sort({'descricao': 1})
     .skip((perPage * page) - perPage)

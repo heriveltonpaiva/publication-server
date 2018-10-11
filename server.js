@@ -1,14 +1,11 @@
 // npm install express body-parser mongoose morgan express-fileupload jsonwebtoken --save
 const express = require('express');
-var compression = require('compression');
+const compression = require('compression');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const morgan = require("morgan");
 const jwt = require('jsonwebtoken');
 // Necessária para carregar o arquivo do fileupload
 const fileUploadDependencia = require('express-fileupload');
-
-
 const app = express();
 
 app.use(function(req, res, next) {
@@ -20,7 +17,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use(morgan("prod"))
 app.use(compression());
 app.use(bodyParser.json({limit:'5mb'})); 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -40,6 +36,7 @@ app.get("/", function(req, res) {
     res.send("<h1>Servidor rodando com ExpressJS</h1>");
 });
 
+/* Serviços públicos que não passam pela autenticação JWT  */
 const auth = require('./routes/authentication.route.js'); 
 app.use('/api/generate-token', auth);
 const public = require('./routes/public.route.js');
@@ -65,6 +62,7 @@ app.use(function(req, res, next){
     }
 });
 
+/** Serviços privados que necessitam do token de autenticação */
 const publicacao = require('./routes/publicacao.route'); 
 const categoria = require('./routes/categoria.route'); 
 const assunto = require('./routes/assunto.route'); 
