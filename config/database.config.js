@@ -7,5 +7,5 @@
 */
 module.exports = {
     secret: 'ilovescotchyscotch',
-    url: 'mongodb://localhost:27017/PaivaSistemasBD'
+    url: 'mongodb://localhost:27017/admin'
 }

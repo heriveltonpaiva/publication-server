@@ -25,12 +25,14 @@ app.use(fileUploadDependencia());
 
 const dbConfig = require('./config/database.config.js');
 mongoose.set('useCreateIndex', true);
-mongoose.connect(dbConfig.url, {useNewUrlParser: true}).then(() => {
+var db = mongoose.connect(dbConfig.url, {useNewUrlParser: true}).then(() => {
     console.log("Conectado a base de dados com sucesso.");  
 }).catch(err => {
     console.log('Não foi possível conectar a base de dados. Exiting now...'+err);
     process.exit();
 });
+
+console.log("Connection Successful!", db);
 
 app.get("/", function(req, res) {
     res.send("<h1>Servidor rodando com ExpressJS</h1>");
@@ -45,7 +47,7 @@ app.use('/api/public', public);
 /**
  * req.query.token: é passado o token pelo PublicationInterceptor através dos params
  * req.headers['x-acess-token']: é passado o token via postman
- */
+ 
 app.use(function(req, res, next){
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
     if (token) {
@@ -61,7 +63,7 @@ app.use(function(req, res, next){
        return res.status(403).send("<h2>Error ao acessar o serviço! É necessário informar o Token de autenticação.</h2>");
     }
 });
-
+*/
 /** Serviços privados que necessitam do token de autenticação */
 const publicacao = require('./routes/publicacao.route'); 
 const categoria = require('./routes/categoria.route'); 
