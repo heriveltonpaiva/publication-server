@@ -1,7 +1,17 @@
 version: '3.1'
 
 services:
+  web:
+    container_name: publication-app
+    build: .  
+    ports:
+      - 3000:3000
+    links:
+      - mongo
+    networks:
+      - mongo-compose-network    
   mongo-express:
+    container_name: mongo-client
     image: mongo-express
     ports:
       - 8081:8081
@@ -17,9 +27,10 @@ services:
       - mongo-compose-network
 
   mongo:
+    container_name: mongo-database
     image: mongo
     environment:
-      MONGO_INITDB_USERNAME: publication-db
+      MONGO_INITDB_USERNAME: admin
     ports:
       - "27017:27017"
     volumes:

@@ -6,6 +6,5 @@
  * --setParameter failIndexKeyTooLong=false é necessário para permitir cadastrar textos longos
 */
 module.exports = {
-    secret: 'ilovescotchyscotch',
-    url: 'mongodb://localhost:27017/admin'
+    url: 'mongodb://mongo:27017/admin'
 }
